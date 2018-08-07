@@ -18,4 +18,8 @@ class Answer extends Model
     {
         return $this->belongsTo('App\Question');
     }
+    public function QuestionAnswered()
+    {
+        return $this->hasOne('App\Notifications\QuestionAnswered');
+    }
 }

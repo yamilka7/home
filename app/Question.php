@@ -17,4 +17,8 @@ class Question extends Model
     {
         return $this->hasMany('App\Answer');
     }
+    public function questionanswered()
+    {
+        return $this->hasMany('App\Notifications\QuestionAnswered');
+    }
 }
