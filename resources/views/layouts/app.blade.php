@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -56,6 +57,35 @@
                         <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                         <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                     @else
+                        <li class="nav-item dropdown">
+                            <a id="notifications" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-bell" aria-hidden="true"></i>
+
+                                Notifications
+                                @if(auth()->user()->unreadNotifications->count() !=0)
+                                    <i class="fa fa-exclamation fa-1g"  style="color: crimson " aria-hidden="true"></i>
+                                @endif
+
+
+
+                            </a>
+
+
+                            <div class="dropdown-menu" aria-labelledby="notifications">
+
+                                @forelse(auth()->user()->unreadNotifications as $notification)
+                                    <a class="dropdown-item" href="{{route('notoans.show')}}" style="background-color: lightgreen"> {{$notification->data['data']}}</a>
+                                @empty
+
+                                    <a class="dropdown-item" href="#">No New Notifications</a>
+
+                                @endforelse
+                                <a class="dropdown-item" href="{{ route('notifys.show') }}" style="background-color: darkgray"><i class="fa fa-cog" aria-hidden="true"></i>
+                                    All Notifications</a>
+
+                            </div>
+
+                        </li>
+
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 My Account <span class="caret"></span>
